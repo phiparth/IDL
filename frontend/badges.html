@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Badges</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="content.html">Dashboard</a></li>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="progress.html">Progress</a></li>
+      <li><a href="badges.html">Badges</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </div>
+
+  <div class="main" id="main">
+    <div class="top-bar">
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    </div>
+
+    <h2>Your Badges</h2>
+    <div class="badge-container">
+      <div class="badge">Beginner</div>
+      <div class="badge">Learner</div>
+      <div class="badge locked">Thinker</div>
+      <div class="badge locked">Speaker</div>
+      <div class="badge locked">Master</div>
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
