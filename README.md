@@ -1,2 +1,2 @@
 # IDL
-IDL bruh sybau
+DebatR! Gamified Debate Learning Platform
