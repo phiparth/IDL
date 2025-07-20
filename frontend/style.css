@@ -293,4 +293,46 @@ a:hover {
   cursor: not-allowed;
 }
 
+.progress-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+  padding: 20px 0;
+  border-top: 2px solid #0f0;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 0 12px #0f0;
+}
+
+
+
+.step {
+  position: relative;
+  padding-top: 20px;
+  color: #0f0;
+  font-weight: bold;
+  cursor: default;
+}
+
+.step::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background-color: #0f0;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: background-color 0.3s;
+}
+
+.step.active::before {
+  background-color: #ff0;
+}
+
+.step.active {
+  color: #ff0;
+}
 
