@@ -35,12 +35,35 @@
       <p>Test your basic understanding of the speaker roles in Asian Parliamentary.</p>
       <a href="further-reading.html">Next ➔</a>
     </div>
+<div class="progress-container">
+  <div class="step" id="step-basics">Basics</div>
+  <div class="step" id="step-quiz">Motion Practice</div>
+  <div class="step" id="step-think">How to Think</div>
+  <div class="step" id="step-roles">Roles Module</div>
+  <div class="step" id="step-trivia">Trivia</div>
+  <div class="step" id="step-reading">Further Reading</div>
+</div>
   </div>
 
   <script>
     function toggleSidebar() {
       document.getElementById("sidebar").classList.toggle("active");
     }
+const stepMap = {
+    "content.html": "step-basics",
+    "quiz.html": "step-quiz",
+    "how-to-think.html": "step-think",
+    "explain-roles.html": "step-roles",
+    "roles-trivia.html": "step-trivia",
+    "further-reading.html": "step-reading"
+  };
+
+  const currentPage = window.location.pathname.split("/").pop();
+  const currentStepId = stepMap[currentPage];
+  if (currentStepId) {
+    const currentStepElement = document.getElementById(currentStepId);
+    if (currentStepElement) currentStepElement.classList.add("active");
+  }
   </script>
 </body>
 </html>
