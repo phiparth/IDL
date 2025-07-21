@@ -1,0 +1,338 @@
+/* CYBERWILD UI: Futuristic with Gradient Background */
+
+/* ========== GLOBAL RESET ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Orbitron', 'Segoe UI', sans-serif;
+  transition: all 0.3s ease;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  color: #eee;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ========== TOP BAR ========== */
+.top-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 1000;
+  box-shadow: 0 0 20px #00ffe5;
+  animation: topbarGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes topbarGlow {
+  0% { box-shadow: 0 0 10px #00ffe5; }
+  100% { box-shadow: 0 0 30px #00ffe5aa; }
+}
+
+.hamburger {
+  height: 48px;
+  width: 48px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0ff, #00f);
+  color: white;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px #00e5ff, 0 0 40px #00e5ff66;
+  cursor: pointer;
+}
+
+.hamburger:hover {
+  transform: rotate(15deg) scale(1.1);
+  box-shadow: 0 0 24px #0ff, 0 0 48px #0ff99;
+}
+
+/* ========== PROFILE ========== */
+.profile img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  box-shadow: 0 0 16px #0ff;
+  animation: pulseShadow 2s infinite;
+}
+
+@keyframes pulseShadow {
+  0%, 100% { box-shadow: 0 0 8px #00ffe5; }
+  50% { box-shadow: 0 0 20px #00ffe5; }
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+  position: fixed;
+  top: 80px;
+  left: -250px;
+  width: 230px;
+  height: calc(100vh - 80px);
+  background: linear-gradient(145deg, #1e1e2f, #131324);
+  border-right: 2px dashed #0ff;
+  padding: 2rem 1rem;
+  z-index: 999;
+  transition: left 0.5s;
+  background-size: 200% 200%;
+  animation: auroraSlide 15s infinite linear;
+}
+
+@keyframes auroraSlide {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar a {
+  display: block;
+  margin: 1rem 0;
+  font-weight: bold;
+  color: #0ff;
+  padding: 0.6rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar a:hover {
+  background: #0ff;
+  color: #111;
+  transform: translateX(10px);
+}
+
+/* ========== MAIN ========== */
+.main {
+  padding: 100px 2rem;
+  min-height: 100vh;
+  transition: margin-left 0.4s;
+}
+
+.sidebar.active ~ .main {
+  margin-left: 230px;
+}
+
+.content-box {
+  background: linear-gradient(135deg, #1c1b3a, #29285e);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 30px #00fff777;
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.content-box:hover {
+  transform: perspective(1000px) rotateY(2deg);
+  box-shadow: 0 0 40px #00fff7aa;
+}
+
+/* ========== BUTTONS ========== */
+button {
+  background: linear-gradient(135deg, #00f0ff, #00bcd4);
+  color: black;
+  font-weight: 800;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 0 0 14px #00e5ff88;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #00ffff, #3f51b5);
+  transform: scale(1.1) rotate(-2deg);
+}
+
+/* ========== FORM ========== */
+input, textarea {
+  width: 100%;
+  padding: 0.8rem;
+  background: #111;
+  border: 1px solid #00ffe5;
+  color: #0ff;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 10px #0ff;
+}
+
+/* ========== HEADERS ========== */
+h1.brand {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #00ffe5;
+  text-shadow: 0 0 8px #00e5ff;
+  animation: glowText 2s infinite alternate;
+}
+
+@keyframes glowText {
+  from { text-shadow: 0 0 5px #0ff; }
+  to { text-shadow: 0 0 20px #0ff; }
+}
+
+p.tagline {
+  text-align: center;
+  color: #ccc;
+  font-size: 1.1rem;
+}
+
+a {
+  color: #b388ff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #fff;
+  text-shadow: 0 0 8px #b388ff;
+  transform: translateX(3px);
+}
+
+/* ========== LOGIN/SIGNUP BOX ========== */
+.signup-container, .login-container {
+  max-width: 400px;
+  margin: 12vh auto;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid #0ff;
+  border-radius: 14px;
+  padding: 2rem;
+  box-shadow: 0 0 40px #00e5ff44;
+}
+
+.login-link {
+  color: #00ffe5;
+  margin-top: 1rem;
+  display: inline-block;
+  text-decoration: underline;
+}
+
+/* ========== MOBILE ========== */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 180px;
+  }
+  .main {
+    padding: 90px 1rem;
+  }
+  .hamburger {
+    font-size: 1.4rem;
+  }
+}
+
+/* ========== TYPEWRITER HEADING (optional JS hook) ========== */
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid #00e5ff;
+  white-space: nowrap;
+  width: 0;
+  animation: typing 4s steps(40, end) forwards, blink 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+
+.badge-container {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.badge {
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+  background-color: #4facfe;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.badge:hover {
+  transform: scale(1.05);
+}
+
+.badge.locked {
+  background-color: #ccc;
+  color: #666;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.progress-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+  padding: 20px 0;
+  border-top: 2px solid #0f0;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 0 12px #0f0;
+}
+
+
+
+.step {
+  position: relative;
+  padding-top: 20px;
+  color: #0f0;
+  font-weight: bold;
+  cursor: default;
+}
+
+.step::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background-color: #0f0;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: background-color 0.3s;
+}
+
+.step.active::before {
+  background-color: #ff0;
+}
+
+.step.active {
+  color: #ff0;
+}
+
