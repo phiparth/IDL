@@ -1,0 +1,19 @@
+DEBATR Frontend
+DEBATR is a multi-page, visually engaging debate learning platform designed to help users understand and master the art of debating. This repository contains the frontend codebase built using React and Tailwind CSS, structured for modularity, responsiveness, and smooth user experience.
+
+Features
+Responsive multi-page layout with animated transitions
+
+Sidebar navigation with a collapsible hamburger menu (hidden on the homepage)
+
+Progress bar to track user advancement through lessons
+
+Integrated content pages for topics such as motions, burdens, rebuttals, and more
+
+Interactive quizzes and assessments
+
+Badge and progress tracking
+
+Tailwind CSS-based consistent theme across all pages
+
+Clean, futuristic UI with animations using Framer Motion
