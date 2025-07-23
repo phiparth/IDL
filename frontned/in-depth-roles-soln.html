@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In Depth Roles Trivia Analysis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Top Menu -->
+  <div class="hamburger-menu">
+    <a href="progress.html">Progress</a>
+    <a href="badges.html">Badges</a>
+    <a href="settings.html">Settings</a>
+  </div>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="profile"><a href="profile.html"><img src="pfp.jpg" alt="Profile" /></a></div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+    
+      <li><a href="badges.html">Badges</a></li>
+      <li><a href="motionpractice.html">Motion Practice</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="content-box">
+      <h2>In Depth Roles Trivia Analysis</h2>
+      <br>
+
+      <!-- Score Display -->
+      <div id="result-box" style="margin-top: 1rem; font-weight: bold;"></div>
+<br>
+      <a href="types-of-motions.html">Next ➔</a>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="step" id="step-basics">Basics</div>
+      <div class="step" id="step-quiz">Motion Practice</div>
+      <div class="step" id="step-roles">Roles Module</div>
+      <div class="step" id="step-trivia">Trivia</div>
+      <div class="step" id="step-reading">Further Reading</div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    const score = localStorage.getItem("quizScore");
+    const correct = localStorage.getItem("quizCorrect");
+    const total = localStorage.getItem("quizTotal");
+
+    const resultBox = document.getElementById("result-box");
+    if (resultBox) {
+      if (score && correct && total) {
+        resultBox.innerHTML = `
+          You got <strong>${correct}/${total}</strong> correct.<br>
+          Score: <strong>${score}%</strong>.
+        `;
+      } else {
+        resultBox.innerText = "❌ No score data found. Please complete the quiz.";
+      }
+    }
+
+    const stepMap = {
+      "content.html": "step-basics",
+      "quiz.html": "step-quiz",
+      "explain-roles.html": "step-roles",
+      "in-depth-roles-soln.html": "step-roles",
+      "roles-trivia.html": "step-trivia",
+      "triviasoln.html": "step-trivia",
+      "further-reading.html": "step-reading"
+    };
+
+    const currentPage = window.location.pathname.split("/").pop();
+    const currentStepId = stepMap[currentPage];
+    if (currentStepId) {
+      const currentStepElement = document.getElementById(currentStepId);
+      if (currentStepElement) currentStepElement.classList.add("active");
+    }
+  </script>
+</body>
+</html>

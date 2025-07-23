@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Judging Practice</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+<div class="hamburger-menu">
+    <a href="progress.html">Progress</a>
+    <a href="stats.html">stats</a>
+    <a href="settings.html">Settings</a>
+</div>
+
+  <div class="top-bar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="profile"><a href="profile.html"><img src="pfp.jpg" alt="Profile" /></a></div>
+  </div>
+
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="progress.html">Progress</a></li>
+      <li><a href="stats.html">stats</a></li>
+      <li><a href = motionpractice.html>Motion Practice </a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <div class="content-box">
+      <h2>Judging Practice</h2>
+      <p>Rate arguments. Experience judging real debate clips.</p>
+      <a href="case-studies.html">Next ➔</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+  </script>
+</body>
+</html>

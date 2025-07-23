@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Analysis - Dual Side</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    #gov-feedback-box, #opp-feedback-box {
+      padding: 1.2em;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+    #gov-feedback-box {
+      background-color: #e8f4ff;
+      color: #111;
+    }
+    #opp-feedback-box {
+      background-color: #ffe8e8;
+      color: #111;
+    }
+    #gov-feedback-box h3, #opp-feedback-box h3 {
+      color: #003366;
+    }
+    #gov-feedback-box h4, #opp-feedback-box h4 {
+      color: #005599;
+    }
+    .markdown-content ul {
+      margin-left: 1.2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Navigation -->
+  <div class="hamburger-menu">
+    <a href="progress.html">Progress</a>
+    <a href="stats.html">Badges</a>
+    <a href="settings.html">Settings</a>
+  </div>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="profile">
+      <a href="profile.html"><img src="pfp.jpg" alt="Profile" /></a>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="stats.html">Badges</a></li>
+      <li><a href="motionpractice.html">Motion Practice</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="content-box">
+      <h2>Quiz Analysis</h2>
+      <p>Your AI-generated feedback for both sides:</p>
+
+      <h3>Government Feedback:</h3>
+      <div id="gov-feedback-box" class="markdown-content">Loading government feedback...</div>
+
+      <h3>Opposition Feedback:</h3>
+      <div id="opp-feedback-box" class="markdown-content">Loading opposition feedback...</div>
+
+      <a href="explain-roles.html">Next ➔</a>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="step" id="step-basics">Basics</div>
+      <div class="step" id="step-quiz">Motion Practice</div>
+      <div class="step" id="step-think">How to Think</div>
+      <div class="step" id="step-roles">Roles Module</div>
+      <div class="step" id="step-trivia">Trivia</div>
+      <div class="step" id="step-reading">Further Reading</div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    const stepMap = {
+      "content.html": "step-basics",
+      "quiz.html": "step-quiz",
+      "quiz_analysis.html": "step-quiz",
+      "how-to-think.html": "step-think",
+      "explain-roles.html": "step-roles",
+      "roles-trivia.html": "step-trivia",
+      "further-reading.html": "step-reading"
+    };
+
+    const currentPage = window.location.pathname.split("/").pop();
+    const currentStepId = stepMap[currentPage];
+    if (currentStepId) {
+      const currentStepElement = document.getElementById(currentStepId);
+      if (currentStepElement) currentStepElement.classList.add("active");
+    }
+
+    function loadDualFeedback() {
+      const gov = localStorage.getItem("govFeedback");
+      const opp = localStorage.getItem("oppFeedback");
+
+      const govBox = document.getElementById("gov-feedback-box");
+      const oppBox = document.getElementById("opp-feedback-box");
+
+      if (!gov || !opp) {
+        govBox.innerText = "❌ Feedback missing. Please go back and resubmit.";
+        oppBox.innerText = "";
+        return;
+      }
+
+      govBox.innerHTML = marked.parse(gov);
+      oppBox.innerHTML = marked.parse(opp);
+    }
+
+    window.onload = loadDualFeedback;
+  </script>
+</body>
+</html>

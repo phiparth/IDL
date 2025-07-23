@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .badge-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .badge {
+      padding: 10px 20px;
+      border-radius: 25px;
+      background-color: #4facfe;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .badge.locked {
+      background-color: #ccc;
+      color: #888;
+      box-shadow: none;
+    }
+
+    .quote-box {
+      margin-top: 40px;
+      padding: 30px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      background: linear-gradient(135deg, #f3f9ff, #e8f0ff);
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .quote-text {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.6;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .start-button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 30px;
+      background-color: #4facfe;
+      color: white;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    .start-button:hover {
+      background-color: #009ccc;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      
+      <li><a href="stats.html">Stats</a></li>
+      <li><a href="motionpractice.html">Motion Practice</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </div>
+
+  <div class="main" id="main">
+    <div class="top-bar">
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    </div>
+
+    <h2>Welcome to Debate Trainer</h2>
+    <div class="content-box" style="text-align: center;">
+
+      <!-- Gorgeous Quote Display -->
+      <div class="quote-box" id="quoteBox">
+        <div class="quote-text" id="quoteText">"Debate is the art of letting others see your point."</div>
+      </div>
+
+      <!-- Start Learning Button -->
+      <a class="start-button" href="content.html">Start Learning</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
+
+    const quotes = [
+      "Debate is the art of letting others see your point.",
+      "Speak clearly, if you speak at all; carve every word before you let it fall.",
+      "A good argument is a journey, not a battle.",
+      "Logic will get you from A to B. Imagination will take you everywhere.",
+      "Those who stand for nothing fall for anything.",
+      "Confidence is silent. Insecurity is loud.",
+      "The best debaters don't yell — they persuade.",
+      "Clarity in thought leads to power in speech."
+    ];
+
+    let quoteIndex = 0;
+    setInterval(() => {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      const quoteBox = document.getElementById("quoteText");
+      quoteBox.style.opacity = 0;
+
+      setTimeout(() => {
+        quoteBox.textContent = `"${quotes[quoteIndex]}"`;
+        quoteBox.style.opacity = 1;
+      }, 300);
+    }, 5000); // Change quote every 5 seconds
+  </script>
+</body>
+</html>

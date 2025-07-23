@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Roles Trivia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#030317] text-white font-sans">
+
+  <!-- Main Content -->
+  <div class="max-w-3xl mx-auto pt-20 px-6">
+
+    <!-- Header -->
+    <h1 class="text-4xl font-bold mb-10 text-center">Roles Trivia</h1>
+
+    <!-- Questions -->
+    <form id="rolesQuizForm" class="space-y-8">
+
+      <!-- Q1 -->
+      <div class="p-6 border border-blue-500 rounded-md bg-[#0B0D3A]">
+        <p class="font-bold text-lg mb-4">Q1. What is the strategic risk if the Prime Minister (PM) fails to define a vague motion properly?</p>
+        <div class="space-y-3 ml-4">
+          <label class="flex items-center gap-3"><input type="radio" name="q1" value="A" class="accent-blue-400"> A. The debate becomes easier for Gov</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q1" value="B" class="accent-blue-400"> B. The Whip speakers get more freedom</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q1" value="C" class="accent-blue-400"> C. The Opposition can set a more favorable framing</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q1" value="D" class="accent-blue-400"> D. The motion is automatically discarded</label>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="p-6 border border-blue-500 rounded-md bg-[#0B0D3A]">
+        <p class="font-bold text-lg mb-4">Q2. The Leader of Opposition (LO) should ideally do all of the following except:</p>
+        <div class="space-y-3 ml-4">
+          <label class="flex items-center gap-3"><input type="radio" name="q2" value="A" class="accent-blue-400"> A. Offer a counter-framing if the PM's framing is weak</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q2" value="B" class="accent-blue-400"> B. Bring in at least two clear Opp arguments</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q2" value="C" class="accent-blue-400"> C. Delay arguments to the DLO for surprise</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q2" value="D" class="accent-blue-400"> D. Directly engage with the PM’s case</label>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="p-6 border border-blue-500 rounded-md bg-[#0B0D3A]">
+        <p class="font-bold text-lg mb-4">Q3. Why should the Deputy PM avoid introducing an entirely new example-heavy argument late in the speech?</p>
+        <div class="space-y-3 ml-4">
+          <label class="flex items-center gap-3"><input type="radio" name="q3" value="A" class="accent-blue-400"> A. The judges don’t care about examples</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q3" value="B" class="accent-blue-400"> B. It shifts the burden of proof</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q3" value="C" class="accent-blue-400"> C. It leaves insufficient time for rebuttal and defense of PM</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q3" value="D" class="accent-blue-400"> D. It is not allowed in AP format</label>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="p-6 border border-blue-500 rounded-md bg-[#0B0D3A]">
+        <p class="font-bold text-lg mb-4">Q4. Which of the following best describes the ideal burden of a Whip speech?</p>
+        <div class="space-y-3 ml-4">
+          <label class="flex items-center gap-3"><input type="radio" name="q4" value="A" class="accent-blue-400"> A. Extend the debate with fresh perspectives</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q4" value="B" class="accent-blue-400"> B. Weigh both teams' material and frame the narrative in favor of your side</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q4" value="C" class="accent-blue-400"> C. Cover whatever the Deputy missed</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q4" value="D" class="accent-blue-400"> D. Ask questions and handle POIs</label>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="p-6 border border-blue-500 rounded-md bg-[#0B0D3A]">
+        <p class="font-bold text-lg mb-4">Q5. In which of these cases is the Opposition Whip most likely to win the debate?</p>
+        <div class="space-y-3 ml-4">
+          <label class="flex items-center gap-3"><input type="radio" name="q5" value="A" class="accent-blue-400"> A. When they introduce new moral arguments</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q5" value="B" class="accent-blue-400"> B. When they highlight dropped burdens and out-frame the Gov’s narrative</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q5" value="C" class="accent-blue-400"> C. When they are funnier than the Government</label>
+          <label class="flex items-center gap-3"><input type="radio" name="q5" value="D" class="accent-blue-400"> D. When they agree with one of the Government’s points</label>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex justify-start mt-10">
+        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded shadow-md">
+          Submit Answers
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("rolesQuizForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const answers = [];
+      for (let i = 1; i <= 5; i++) {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        answers.push(selected ? selected.value : "");
+      }
+
+      const token = localStorage.getItem("token");
+      const quizId = "explain-roles";
+
+      try {
+        const res = await fetch("http://localhost:3001/api/quiz/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({ quizId, answers })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          localStorage.setItem("quizScore", data.score);
+          localStorage.setItem("quizCorrect", data.correct);
+          localStorage.setItem("quizTotal", data.total);
+          window.location.href = "in-depth-roles-soln.html";
+        } else {
+          alert(data.message || "Submission failed.");
+        }
+      } catch (err) {
+        alert("Error submitting quiz.");
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

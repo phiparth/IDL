@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Motion Practice</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0a043c;
+      color: white;
+      height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .top-bar {
+      background-color: #0a043c;
+      padding: 1em;
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hamburger {
+      background: linear-gradient(145deg, #00f2fe, #4facfe);
+      color: white;
+      font-size: 24px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -220px;
+      width: 200px;
+      height: 100vh;
+      background-color: #121212;
+      padding-top: 80px;
+      border-right: 2px dashed #00ffff;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      transition: left 0.3s ease;
+      z-index: 1;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .sidebar ul li a {
+      color: #00f2fe;
+      text-decoration: none;
+      padding: 12px 18px;
+      display: block;
+      background-color: #222;
+      border-radius: 10px;
+      font-weight: bold;
+      box-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
+      transition: transform 0.2s ease;
+    }
+
+    .sidebar ul li a:hover {
+      transform: scale(1.05);
+    }
+
+    .main {
+      margin-left: 0;
+      padding: 2em;
+      transition: margin-left 0.3s ease;
+    }
+
+    .sidebar.active ~ .main {
+      margin-left: 200px;
+    }
+
+    #motion-display, #role-display {
+      background-color: #222;
+      padding: 1em;
+      margin-bottom: 0.8em;
+      border-radius: 10px;
+      font-size: 1.1em;
+    }
+
+    textarea {
+      background-color: #111;
+      color: #fff;
+      border: 1px solid #555;
+      width: 100%;
+      padding: 1em;
+      font-size: 1em;
+      border-radius: 8px;
+    }
+
+    .button-group {
+      margin-top: 1em;
+      display: flex;
+      gap: 1em;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background-color: #00c3ff;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      padding: 0.7em 1.5em;
+      cursor: pointer;
+      box-shadow: 0 0 8px #00f2ff;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #009cc2;
+    }
+
+    #mic-status {
+      margin-top: 0.5em;
+      font-style: italic;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="progress.html">Progress</a></li>
+      <li><a href="stats.html">Stats</a></li>
+      <li><a href="motionpractice.html">Motion Practice</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+  </div>
+
+  <!-- Main content -->
+  <div class="main" id="main">
+    <h2>Random Motion Practice</h2>
+    <div id="motion-display">Loading motion...</div>
+    <div id="role-display">Loading role...</div>
+
+    <textarea id="gov-text" placeholder="Write your speech here..." rows="6"></textarea>
+
+    <div class="button-group">
+      <button onclick="startVoiceInput()">🎙️ Start Mic</button>
+      <button onclick="stopVoiceInput()">🛑 Stop Mic</button>
+      <button onclick="submitAndRedirect()">✅ Submit</button>
+    </div>
+
+    <div id="mic-status">Mic Status: Not Listening</div>
+  </div>
+
+  <script>
+    const motions = [
+      "This House believes that social media does more harm than good.",
+      "This House would ban all forms of animal testing.",
+      "This House believes that climate change is the greatest threat to humanity.",
+      "This House would implement universal basic income.",
+      "This House believes that education should be free for all.",
+      "This House would abolish the death penalty.",
+      "This House believes that governments should prioritize mental health.",
+      "This House would ban single-use plastics.",
+      "This House believes that the right to privacy is more important than national security.",
+      "This House would allow euthanasia for terminally ill patients.",
+      "This House would choose privacy over security.",
+      "This House would never lie, even for a good cause.",
+      "This House believes moral actions don't need religious reasons.",
+      "This House prefers a world where people know their death date.",
+      "This House regrets the influence of celebrity culture.",
+      "This House would ban violent video games.",
+      "This House believes reality TV does more harm than good.",
+      "This House believes art should not be censored.",
+      "This House would abolish school uniforms.",
+      "This House believes students should choose what they study from age 14.",
+      "This House would remove grades in schools.",
+      "This House believes you should never date your best friend.",
+      "This House believes exes can be friends.",
+      "This House would prioritize friends over romantic partners.",
+      "This House believes childhood friendships are more genuine than adult friendships."
+    ];
+
+    const roles = [
+      "Prime Minister",
+      "Leader of the Opposition",
+      "Deputy Prime Minister",
+      "Deputy Leader of the Opposition",
+      "Member of Government",
+      "Member of Opposition",
+      "Government Whip",
+      "Opposition Whip"
+    ];
+
+    let recognition;
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
+
+    function startVoiceInput() {
+      const textarea = document.getElementById("gov-text");
+      const status = document.getElementById("mic-status");
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert("Speech recognition not supported in this browser.");
+        return;
+      }
+
+      recognition = new SpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onstart = () => status.innerText = "Mic Status: Listening...";
+      recognition.onend = () => status.innerText = "Mic Status: Not Listening";
+      recognition.onerror = (event) => alert("Speech error: " + event.error);
+
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        textarea.value += (textarea.value ? '\n' : '') + transcript;
+        localStorage.setItem("gov-text", textarea.value);
+      };
+
+      recognition.start();
+    }
+
+    function stopVoiceInput() {
+      if (recognition) {
+        recognition.stop();
+        document.getElementById("mic-status").innerText = "Mic Status: Not Listening";
+      }
+    }
+
+    function submitAndRedirect() {
+      const speech = document.getElementById("gov-text").value.trim();
+      const motion = localStorage.getItem("feedback_motion");
+      const role = localStorage.getItem("feedback_role");
+
+      if (!speech) {
+        alert("Please enter your speech before submitting.");
+        return;
+      }
+
+      localStorage.setItem("feedback_speech", speech);
+      window.location.href = "randommotionfeedback.html";
+    }
+
+    window.onload = () => {
+      const motion = motions[Math.floor(Math.random() * motions.length)];
+      const role = roles[Math.floor(Math.random() * roles.length)];
+
+      document.getElementById("motion-display").innerText = "⚖️ Motion: " + motion;
+      document.getElementById("role-display").innerText = "🎭 Your Role: " + role;
+
+      localStorage.setItem("feedback_motion", motion);
+      localStorage.setItem("feedback_role", role);
+
+      const saved = localStorage.getItem("gov-text");
+      if (saved) document.getElementById("gov-text").value = saved;
+    };
+  </script>
+</body>
+</html>

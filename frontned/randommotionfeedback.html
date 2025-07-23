@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Speech Feedback</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: sans-serif;
+      padding: 2em;
+    }
+    .box {
+      background-color: #222;
+      padding: 1em;
+      margin-bottom: 1em;
+      border-radius: 8px;
+    }
+    h2, h3 {
+      color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Speech Feedback</h1>
+
+  <div class="box" id="motion-box"></div>
+  <div class="box" id="score-box"></div>
+  <div class="box" id="comment-box"></div>
+  <div class="box" id="full-feedback-box"></div>
+
+  <script>
+    const motion = localStorage.getItem("feedback_motion");
+    const speech = localStorage.getItem("feedback_speech");
+    const role = localStorage.getItem("feedback_role");
+
+    document.getElementById("motion-box").innerText = "⚖️ Motion: " + (motion || "Not found");
+
+    async function getFeedback() {
+      if (!motion || !speech || !role) {
+        alert("❌ Missing speech data. Please go back and try again.");
+        return;
+      }
+
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("❌ You're not logged in. Please log in first.");
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:3001/api/judge/score", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+          },
+          body: JSON.stringify({ motion, role, speech })
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.message);
+        }
+
+        const data = await res.json();
+
+        document.getElementById("score-box").innerHTML = `<h3>Score:</h3> ${data.score}/10`;
+        document.getElementById("comment-box").innerHTML = `<h3>Comment:</h3> ${data.comment}`;
+        document.getElementById("full-feedback-box").innerHTML = `<h3>Detailed Feedback:</h3><pre>${data.fullFeedback}</pre>`;
+      } catch (err) {
+        alert("❌ Feedback error: " + err.message);
+      }
+    }
+
+    getFeedback();
+  </script>
+</body>
+</html>

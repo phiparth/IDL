@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    textarea {
+      background-color: #222;
+      color: white;
+      border: 1px solid #555;
+      margin-bottom: 1em;
+    }
+
+    .mic-btn {
+      margin: 0.5em 0.5em 0.5em 0;
+      padding: 0.4em 0.8em;
+      font-weight: bold;
+      background-color: #444;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .mic-btn:hover {
+      background-color: #666;
+    }
+
+    .sidebar {
+      display: none;
+      position: fixed;
+      top: 50px;
+      left: 0;
+      background-color: #1a1a1a;
+      width: 200px;
+      padding: 1em;
+      height: 100%;
+      border-right: 1px solid #333;
+    }
+
+    .sidebar.active {
+      display: block;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1f1f1f;
+      padding: 1em;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .hamburger {
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      color: white;
+      cursor: pointer;
+    }
+
+    .hamburger-menu {
+      margin-top: 60px;
+      padding: 1em;
+    }
+
+    .main {
+      margin-top: 120px;
+      padding: 1em;
+    }
+
+    .profile img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Fixed top hamburger menu -->
+
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="profile"><a href="profile.html"><img src="pfp.jpg" alt="Profile" /></a></div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+     
+      <li><a href="stats.html">Stats</a></li>
+      <li><a href="motionpractice.html">Motion Practice</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <h1>Quiz!</h1>
+    <div class="content-box">
+      <h2>This house believes that money can buy happiness</h2>
+
+      <textarea id="gov-text" placeholder="Government arguments" rows="6" cols="50"></textarea><br />
+      <button class="mic-btn" onclick="startRecording('gov-text')">▶️ Start (Gov)</button>
+      <button class="mic-btn" onclick="stopRecording('gov-text')" disabled>⏹️ Stop (Gov)</button>
+
+      <br /><br />
+
+      <textarea id="opp-text" placeholder="Opposition arguments" rows="6" cols="50"></textarea><br />
+      <button class="mic-btn" onclick="startRecording('opp-text')">▶️ Start (Opp)</button>
+      <button class="mic-btn" onclick="stopRecording('opp-text')" disabled>⏹️ Stop (Opp)</button>
+
+      <br><br>
+      <button onclick="submitArguments()" style="padding: 0.6em 1.2em; font-weight: bold;">Submit</button>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("active");
+    }
+
+    let mediaRecorder;
+    let audioChunks = [];
+    let currentTextareaId = "";
+
+    async function startRecording(textareaId) {
+      if (!navigator.mediaDevices || !window.MediaRecorder) {
+        alert("Your browser does not support audio recording.");
+        return;
+      }
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+        currentTextareaId = textareaId;
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.start();
+        toggleButtons(textareaId, true);
+      } catch (err) {
+        console.error("Recording error:", err);
+        alert("Microphone access denied or error.");
+      }
+    }
+
+    async function stopRecording(textareaId) {
+      if (!mediaRecorder) return;
+
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+        const formData = new FormData();
+        formData.append("audio", audioBlob, "audio.webm");
+
+        try {
+          const response = await fetch("http://localhost:3001/api/transcribe", {
+            method: "POST",
+            body: formData
+          });
+
+          const result = await response.json();
+          const transcript = result.transcript || "[Could not transcribe]";
+
+          if (transcript === "[Could not transcribe]") {
+            alert("Transcription failed. Please try again.");
+            toggleButtons(textareaId, false);
+            return;
+          }
+
+          const textarea = document.getElementById(textareaId);
+          textarea.value += (textarea.value ? "\n" : "") + transcript;
+
+        } catch (err) {
+          console.error("Fetch error:", err);
+          alert("Error sending audio to server.");
+        }
+
+        toggleButtons(textareaId, false);
+      };
+
+      mediaRecorder.stop();
+    }
+
+    function toggleButtons(id, recording) {
+      document.querySelector(`button[onclick="startRecording('${id}')"]`).disabled = recording;
+      document.querySelector(`button[onclick="stopRecording('${id}')"]`).disabled = !recording;
+    }
+
+    async function submitArguments() {
+      const govText = document.getElementById("gov-text").value.trim();
+      const oppText = document.getElementById("opp-text").value.trim();
+
+      if (!govText || !oppText) {
+        alert("Please fill in both Government and Opposition arguments.");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:3001/api/feedback/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            governmentAnswer: govText,
+            oppositionAnswer: oppText
+          })
+        });
+
+        const result = await response.json();
+
+        localStorage.setItem("govFeedback", result.governmentAnswer || "No feedback");
+        localStorage.setItem("oppFeedback", result.oppositionAnswer || "No feedback");
+
+        window.location.href = "quiz_analysis.html";
+      } catch (err) {
+        console.error("Error submitting arguments:", err);
+        alert("Error generating feedback.");
+      }
+    }
+
+    window.onload = () => {
+      toggleButtons("gov-text", false);
+      toggleButtons("opp-text", false);
+    };
+  </script>
+
+</body>
+
+</html>

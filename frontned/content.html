@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Content</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .next-button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .next-button {
+      background: linear-gradient(135deg, #00f5a0, #00d9f5);
+      border: none;
+      padding: 15px 30px;
+      color: white;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0, 255, 200, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .next-button:hover {
+      background: linear-gradient(135deg, #00d9f5, #00f5a0);
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 255, 200, 0.6);
+    }
+  </style>
+</head>
+
+<body>
+<div class="hamburger-menu">
+  <a href="progress.html">Progress</a>
+  <a href="stats.html">Stats</a>
+  <a href="settings.html">Settings</a>
+</div>
+
+<div class="sidebar" id="sidebar">
+  <ul>
+    <li><a href="home.html">Home</a></li>
+    <li><a href="stats.html">Stats</a></li>
+    <li><a href="motionpractice.html">Motion Practice</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+</div>
+
+<div class="main" id="main">
+  <div class="top-bar">
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="profile">
+      <a href="profile.html"><img src="pfp.jpg" alt="Profile"></a>
+    </div>
+  </div>
+
+  <h1>Basics of Format</h1>
+  <div class="content-box">
+    <p><div class="text-white leading-relaxed text-base">
+      <strong><h1>🧩Basics of the Asian Parliamentary Format</h1></strong><br><br>
+
+      The Asian Parliamentary (AP) format is one of the most common debate styles used in schools and colleges. It’s a team-based format with two sides:<br>
+      • <strong>Government (Gov)</strong>: Supports the motion<br>
+      • <strong>Opposition (Opp)</strong>: Opposes the motion<br><br>
+
+      Each team has 3 speakers, and each person speaks for 7 minutes.<br>
+      During a speech, members from the other team can offer Points of Information (POIs) between the 1st and 6th minute. These are short interjections or questions to challenge the speaker.<br><br>
+
+      <strong><h1>EXAMPLES:</h1></strong><br>
+      ________________________________________<br>
+      <strong><h1>🏛️Motion: This House would prioritize friends over romantic partners</h1></strong><br>
+      <em>first ask user and then give this analysis</em><br>
+      ________________________________________<br><br>
+
+      ✅ <strong>Government Case</strong><br>
+      <strong>Principle:</strong> Friendships are deeper and more stable over time. Romantic relationships often fade or break, but friends offer lifelong support.<br>
+      <strong>Practical:</strong> Friendships are plural and diverse. Prioritizing them prevents emotional overdependence on one partner. It creates a healthier, more balanced life.<br>
+      <strong>Examples:</strong><br>
+      • Friends stay through breakups.<br>
+      • Many people feel more emotionally safe and open with friends.<br><br>
+
+      ❌ <strong>Opposition Case</strong><br>
+      <strong>Principle:</strong> Romantic relationships demand exclusivity and depth. Prioritizing others can break trust and emotional intimacy.<br>
+      <strong>Practical:</strong> Building a life with a partner (marriage, kids, shared finances) needs prioritization. Friends are important, but can't offer the same long-term commitment.<br>
+      <strong>Examples:</strong><br>
+      • Partner may feel neglected if friends are always prioritized.<br>
+      • Romantic bonds need effort and exclusivity to work.<br><br>
+
+      🧠 <strong>How to Think of Arguments</strong><br>
+      1. Define the context: What does “prioritize” mean? Time? Emotional commitment? Decision-making?<br>
+      2. Identify the clash: Emotional health, loyalty, long-term stability.<br>
+      3. Think stakeholders: How are friends affected? How is the partner affected?<br>
+      4. Weigh values: Stability vs intimacy, diversity of bonds vs exclusivity, emotional safety vs commitment.<br><br>
+
+      <em>Use real-life logic:</em><br>
+      • Gov: “Who stays with you through life’s ups and downs?”<br>
+      • Opp: “Who do you build your future with?”<br><br>
+
+      <strong>Always ask:</strong> Why does this matter? To whom? In what context?<br><br>
+
+      <strong><h1>🏛️Motion: This House believes exes can be friends</h1></strong><br>
+      ________________________________________<br><br>
+
+      ✅ <strong>Government Case</strong><br>
+      <strong>Principle:</strong> Emotional connections don’t need to end just because romance does. If the breakup was respectful, a meaningful friendship can remain.<br>
+      <strong>Practical:</strong> Exes often understand each other deeply. They can offer mature support, closure, and stability — especially if they were important in each other’s lives.<br>
+      <strong>Examples:</strong><br>
+      • People co-parent after divorce and remain friends.<br>
+      • Some breakups are mutual and end without bitterness.<br>
+      <strong>Why it matters:</strong> Promotes emotional maturity, breaks toxic “all or nothing” norms.<br><br>
+
+      ❌ <strong>Opposition Case</strong><br>
+      <strong>Principle:</strong> Romantic history creates emotional baggage. Staying friends confuses boundaries and prevents full closure.<br>
+      <strong>Practical:</strong> One person may still have feelings. New partners may feel uncomfortable. It can lead to jealousy, drama, or emotional harm.<br>
+      <strong>Examples:</strong><br>
+      • Staying in touch delays moving on.<br>
+      • One-sided friendships after breakups are common and painful.<br>
+      <strong>Why it matters:</strong> Emotional clarity and clean breaks protect mental health and future relationships.<br><br>
+
+      🧠 <strong>How to Think of Arguments</strong><br>
+      1. Define terms: What does “being friends” look like? Regular contact? Emotional closeness?<br>
+      2. Identify stakes: Emotional wellbeing, maturity, boundaries, future relationships.<br>
+      3. Ask ‘why’ and ‘what if’: Why would someone want this? What if one party still has feelings?<br>
+      4. Compare impacts: Gov focuses on healthy emotional evolution; Opp on mental clarity and clean transitions.<br>
+    </div></p>
+
+    <!-- NEXT BUTTON -->
+    <div class="next-button-container">
+      <a href="quiz.html" class="next-button">Next ➔</a>
+    </div>
+  </div>
+
+  <div class="progress-container">
+    <div class="step" id="step-basics">Basics</div>
+    <div class="step" id="step-quiz">Motion Practice</div>
+    <div class="step" id="step-think">How to Think</div>
+    <div class="step" id="step-roles">Roles Module</div>
+    <div class="step" id="step-trivia">Trivia</div>
+    <div class="step" id="step-reading">Further Reading</div>
+  </div>
+</div>
+
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('active');
+  }
+
+  const stepMap = {
+    "content.html": "step-basics",
+    "quiz.html": "step-quiz",
+    "how-to-think.html": "step-think",
+    "explain-roles.html": "step-roles",
+    "roles-trivia.html": "step-trivia",
+    "further-reading.html": "step-reading"
+  };
+
+  const currentPage = window.location.pathname.split("/").pop();
+  const currentStepId = stepMap[currentPage];
+  if (currentStepId) {
+    const currentStepElement = document.getElementById(currentStepId);
+    if (currentStepElement) currentStepElement.classList.add("active");
+  }
+</script>
+
+</body>
+</html>

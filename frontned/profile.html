@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Top Menu -->
+  <div class="hamburger-menu">
+    <a href="progress.html">Progress</a>
+    <a href="stats.html">Badges</a>
+    <a href="settings.html">Settings</a>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="stats.html">Badges</a></li>
+      <li><a href="motionpractice.html">Motion Practice</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="top-bar">
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+      <div class="profile">
+        <a href="profile.html"><img src="pfp.jpg" alt="Profile" /></a>
+      </div>
+    </div>
+
+    <div class="profile-content">
+      <h2 id="profile-name">Loading...</h2>
+      <br>
+      <p><strong>Username:</strong> <span id="profile-username"></span></p>
+      <br>
+      <p><strong>Email:</strong> <span id="profile-email"></span></p>
+      <br>
+      <p><strong>Age:</strong> <span id="profile-age"></span></p>
+      <br>
+      <p><strong>Organization:</strong> <span id="profile-org"></span></p>
+      <br />
+      <a href="login.html" onclick="logout()">Sign out</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+    }
+
+    async function fetchProfile() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:3001/api/user/profile", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch profile");
+        }
+
+        const user = await res.json();
+
+        document.getElementById("profile-name").innerText = user.name || "No name";
+        document.getElementById("profile-username").innerText = user.username || "-";
+        document.getElementById("profile-email").innerText = user.email || "-";
+        document.getElementById("profile-age").innerText = user.age || "N/A";
+        document.getElementById("profile-org").innerText = user.organization || "N/A";
+
+      } catch (err) {
+        console.error(err);
+        alert("Session expired or error loading profile. Please log in again.");
+        window.location.href = "login.html";
+      }
+    }
+
+    window.onload = fetchProfile;
+  </script>
+</body>
+</html>

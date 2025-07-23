@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Settings</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="progress.html">Progress</a></li>
+      <li><a href="stats.html">Badges</a></li>
+      <li><a href = motionpractice.html>Motion Practice </a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </div>
+
+  <div class="main" id="main">
+    <div class="top-bar">
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+    </div>
+
+    <h2>Settings</h2>
+    <div class="content-box">
+      <h3><p>Notifications: Enabled</p></h3>
+      <br>
+      <h3><p>Account Status: Active</p></h3>
+      <br>
+      <button>Clear History</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
